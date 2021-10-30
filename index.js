@@ -3,10 +3,10 @@ const fs = require('fs');
 
 const targets = {
   x86: 'i386-pc-win32',
-  x64: 'x86_64-pc-windows-msvc',
+  x86_64: 'x86_64-pc-windows-msvc',
 };
 
-for (const arch of ['x86', 'x64']) {
+for (const arch of ['x86', 'x86_64']) {
   const json = JSON.parse(fs.readFileSync(arch + '.json').toString());
   const cwd = json.package_folder;
   const name = json.reference.replace(/\//g, '-');

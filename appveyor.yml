@@ -1,24 +1,21 @@
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 platform:
 - x64
 
 install:
-  - ps: node -v
-  - ps: npm -v
+  - cmd: node -v
+  - cmd: npm -v
   - cmd: npm --loglevel=error i
-  # - ps: choco install nasm
   - cmd: echo "Downloading conan..."
   - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
   - cmd: pip.exe install conan
   - cmd: conan user # Create the conan data directory
   - cmd: conan --version
-  - ps: conan remote list
+  - cmd: conan remote list
 build_script:
-  - ps: echo build $env:build_target
-  - ps: conan install $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --build=missing
-  - ps: conan info $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --paths --json x64.json
-  - cmd: build_x86.cmd %build_target% "-o no_asm=True"
-  - ps: conan info $env:build_target@ -s arch=x86 -s compiler.runtime=MT --paths --json x86.json
-  - ps: node index
-  - ps: ls
+  - cmd: echo build %build_target%...
+  - cmd: build.cmd %build_target% "%x86_64_flags%"
+  - cmd: build.cmd %build_target% "%x86_flags%"
+  - cmd: node index
+  - cmd: dir
