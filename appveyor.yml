@@ -7,7 +7,7 @@ install:
   - ps: node -v
   - ps: npm -v
   - cmd: npm --loglevel=error i
-  - ps: choco install nasm
+  # - ps: choco install nasm
   - cmd: echo "Downloading conan..."
   - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
   - cmd: pip.exe install conan
@@ -17,7 +17,7 @@ build_script:
   - ps: echo build $env:build_target
   - ps: conan install $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --build=missing
   - ps: conan info $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --paths --json x64.json
-  - ps: conan install $env:build_target@ -s arch=x86 -s compiler.runtime=MT --build=missing
+  - ps: conan install $env:build_target@ -s arch=x86 -s compiler.runtime=MT --build
   - ps: conan info $env:build_target@ -s arch=x86 -s compiler.runtime=MT --paths --json x86.json
   - ps: node index
   - ps: ls
