@@ -6,7 +6,7 @@ platform:
 install:
   - ps: node -v
   - ps: npm -v
-  - ps: npm i
+  - cmd: npm --loglevel=error i
   - cmd: echo "Downloading conan..."
   - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
   - cmd: pip.exe install conan
