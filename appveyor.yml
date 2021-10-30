@@ -3,7 +3,13 @@ image: Visual Studio 2019
 platform:
 - x64
 
+cache:
+  - C:\ProgramData\chocolatey\bin -> appveyor.yml
+  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+  - '%APPDATA%\npm-cache'
+
 install:
+  - cmd: choco install gh
   - cmd: node -v
   - cmd: npm -v
   - cmd: npm --loglevel=error i
