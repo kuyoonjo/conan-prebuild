@@ -10,7 +10,7 @@ cache:
 
 install:
   - cmd: choco install gh
-  - cmd: refreshenv
+  - cmd: type C:\ProgramData\chocolatey\logs\chocolatey.log
   - cmd: echo %gh_token%> .gh_token
   - cmd: gh auth login --with-token < .gh_token
   - cmd: node -v
