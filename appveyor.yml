@@ -14,7 +14,7 @@ install:
   - cmd: npm -v
   - cmd: npm --loglevel=error i
   - cmd: echo "Downloading conan..."
-  - cmd: set PATH=%PATH%;C:/Python39-x64/Scripts/
+  - cmd: set PATH=C:/Python39-x64/Scripts/;%PATH%
   - cmd: pip.exe install conan
   - cmd: conan user # Create the conan data directory
   - cmd: conan --version
