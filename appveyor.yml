@@ -1,11 +1,12 @@
 image: Visual Studio 2017
 
 platform:
-- x86
+- x64
 
 install:
   - ps: node -v
   - ps: npm -v
+  - ps: npm i
   - cmd: echo "Downloading conan..."
   - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
   - cmd: pip.exe install conan
@@ -13,6 +14,9 @@ install:
   - cmd: conan --version
 build_script:
   - ps: echo build $env:build_target
-  - ps: conan install $env:build_target@
-  - ps: conan info $env:build_target@ --json output.json
-  - ps: type output.json
+  - ps: conan install $env:build_target@ -s arch=x64
+  - ps: conan info $env:build_target@ -s arch=x64 --json --paths x64.json
+  - ps: conan install $env:build_target@ -s arch=x86
+  - ps: conan info $env:build_target@ -s arch=x86 --json --paths x86.json
+  - ps: node index
+  - ps: ls

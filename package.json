@@ -1,0 +1,22 @@
+{
+  "name": "conan-prebuild",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuyoonjo/conan-prebuild.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuyoonjo/conan-prebuild/issues"
+  },
+  "homepage": "https://github.com/kuyoonjo/conan-prebuild#readme",
+  "dependencies": {
+    "tar": "^6.1.11"
+  }
+}
