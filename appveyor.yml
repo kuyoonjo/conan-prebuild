@@ -13,6 +13,7 @@ install:
   - cmd: pip.exe install conan
   - cmd: conan user # Create the conan data directory
   - cmd: conan --version
+  - ps: conan install nasm/2.15.05@ -s arch=x86 -s compiler.runtime=MT --build
 build_script:
   - ps: echo build $env:build_target
   - ps: conan install $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --build=missing
