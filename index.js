@@ -11,7 +11,7 @@ for (const arch of ['x86_64', 'x86']) {
   const cmdInstall = [
     'conan',
     'install',
-    process.env.build_target,
+    process.env.build_target + '@',
     `-s arch=${arch}`,
     '--build=missing',
     process.env[arch + '_flags'],
