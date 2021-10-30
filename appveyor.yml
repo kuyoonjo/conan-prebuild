@@ -4,8 +4,6 @@ platform:
 - x86
 
 install:
-  - cmd: echo "Downloading node..."
-  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild "15.11.0") $env:platform;
   - ps: node -v
   - ps: npm -v
   - cmd: echo "Downloading conan..."
