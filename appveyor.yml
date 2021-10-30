@@ -23,4 +23,4 @@ build_script:
   - cmd: echo build %build_target%...
   - cmd: node index
   - cmd: dir
-  - cmd: refreshenv && gh release upload %build_target% %build_target%-%build_version%-x86_64-pc-windows-msvc.tar.gz --clobber && gh release upload %build_target% %build_target%-%build_version%-i386-pc-win32.tar.gz --clobber
+  - cmd: refreshenv && gh release upload %build_target% %build_output_basename%.tgz
