@@ -12,7 +12,7 @@ install:
   - cmd: choco install gh
   - cmd: type C:\ProgramData\chocolatey\logs\chocolatey.log
   - cmd: echo %gh_token%> .gh_token
-  - cmd: 'C:\Program Files (x86)\GitHub CLI\gh.exe' auth login --with-token < .gh_token
+  - cmd: refreshenv && gh auth login --with-token < .gh_token
   - cmd: node -v
   - cmd: npm -v
   - cmd: npm --loglevel=error i
