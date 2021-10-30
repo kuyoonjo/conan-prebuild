@@ -14,9 +14,9 @@ install:
   - cmd: conan --version
 build_script:
   - ps: echo build $env:build_target
-  - ps: conan install $env:build_target@ -s arch=x86_64
-  - ps: conan info $env:build_target@ -s arch=x86_64 --paths --json x64.json
-  - ps: conan install $env:build_target@ -s arch=x86
-  - ps: conan info $env:build_target@ -s arch=x86 --paths --json x86.json
+  - ps: conan install $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT
+  - ps: conan info $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --build=missing --paths --json x64.json
+  - ps: conan install $env:build_target@ -s arch=x86 -s compiler.runtime=MT
+  - ps: conan info $env:build_target@ -s arch=x86 -s compiler.runtime=MT --build=missing --paths --json x86.json
   - ps: node index
   - ps: ls
