@@ -22,7 +22,7 @@ for (const arch of ['x86_64', 'x86']) {
   const cmdInfo = [
     'conan',
     'info',
-    process.env.build_target,
+    process.env.build_target + '@',
     `-s arch=${arch}`,
     process.env[arch + '_flags'],
     `--paths --json ${arch}.json`,
