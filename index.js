@@ -7,24 +7,15 @@ const targets = {
   x86_64: 'x86_64-pc-windows-msvc',
 };
 
-const gh = 'refreshenv && gh';
+const name = process.env.build_target + '-' + process.env.build_version
+const reference = process.env.build_target + '/' + process.env.build_version;
 
-const cmdGhLogin = `${gh} auth login --with-token < .gh_token`;
-console.log(cmdGhLogin);
-cp.execSync(cmdGhLogin, { stdio: 'inherit' });
-
-const name = process.env.build_target.replace(/\//g, '-');
-const releaseName = process.env.build_target.split('/')[0];
-const cmdCreateRelease = `${gh} release create ${releaseName} --notes ${releaseName}`;
-console.log(cmdCreateRelease);
-cp.execSync(cmdCreateRelease, { stdio: 'inherit' });
-
-for (const arch of ['x86_64', 'x86']) {
+for (const arch of ['x86_64']) {
   const jsonPath = `${name}-${arch}.json`;
   const cmdInstall = [
     'conan',
     'install',
-    process.env.build_target + '@',
+    reference + '@',
     `-s arch=${arch}`,
     '--build=missing',
     process.env[arch + '_flags'],
@@ -35,7 +26,7 @@ for (const arch of ['x86_64', 'x86']) {
   const cmdInfo = [
     'conan',
     'info',
-    process.env.build_target + '@',
+    reference + '@',
     `-s arch=${arch}`,
     process.env[arch + '_flags'],
     `--paths --json ${jsonPath}`,
@@ -44,7 +35,7 @@ for (const arch of ['x86_64', 'x86']) {
   cp.execSync(cmdInfo, { stdio: 'inherit' });
 
   const jsonArray = JSON.parse(fs.readFileSync(jsonPath).toString());
-  const json = jsonArray.find(x => x.reference === process.env.build_target);
+  const json = jsonArray.find(x => x.reference === reference);
   console.log(json);
   const cwd = json.package_folder;
   const output = name + '-' + targets[arch] + '.tar.gz';
@@ -54,9 +45,5 @@ for (const arch of ['x86_64', 'x86']) {
       cwd,
     },
     ['.']
-  ).pipe(fs.createWriteStream(output)).on('close', () => {
-    const cmdUploadRelease = `${gh} release upload ${releaseName} ${output} --clobber`;
-    console.log(cmdUploadRelease);
-    cp.execSync(cmdUploadRelease, { stdio: 'inherit' });
-  });
+  ).pipe(fs.createWriteStream(output));
 }
