@@ -11,7 +11,6 @@ cache:
 install:
   - cmd: choco install gh
   - cmd: echo %gh_token%> .gh_token
-  - cmd: refreshenv && gh auth login --with-token
   - cmd: node -v
   - cmd: npm -v
   - cmd: npm --loglevel=error i

@@ -7,11 +7,15 @@ const targets = {
   x86_64: 'x86_64-pc-windows-msvc',
 };
 
-const gh = 'C:\\Program Files (x86)\\GitHub CLI\\gh.exe';
+const gh = 'refreshenv && gh';
+
+const cmdGhLogin = `${gh} auth login --with-token < .gh_token`;
+console.log(cmdGhLogin);
+cp.execSync(cmdGhLogin, { stdio: 'inherit' });
 
 const name = process.env.build_target.replace(/\//g, '-');
 const releaseName = process.env.build_target.split('/')[0];
-const cmdCreateRelease = `"${gh}" release create ${releaseName} --notes ${releaseName}`;
+const cmdCreateRelease = `${gh} release create ${releaseName} --notes ${releaseName}`;
 console.log(cmdCreateRelease);
 cp.execSync(cmdCreateRelease, { stdio: 'inherit' });
 
@@ -53,7 +57,7 @@ for (const arch of ['x86_64', 'x86']) {
   ).pipe(fs.createWriteStream(output));
   // gh release upload
 
-  const cmdUploadRelease = `"${gh}" release upload ${releaseName} ${output} --clobber`;
+  const cmdUploadRelease = `${gh} release upload ${releaseName} ${output} --clobber`;
   console.log(cmdUploadRelease);
   cp.execSync(cmdUploadRelease, { stdio: 'inherit' });
 }
