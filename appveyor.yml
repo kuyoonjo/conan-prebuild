@@ -13,7 +13,8 @@ install:
   - cmd: pip.exe install conan
   - cmd: conan user # Create the conan data directory
   - cmd: conan --version
-  - ps: conan remote add conancenter https://center.conan.io
+  - ps: conan remote list
+  - ps: conan remote update conancenter https://center.conan.io
 build_script:
   - ps: echo build $env:build_target
   - ps: conan install $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --build=missing
