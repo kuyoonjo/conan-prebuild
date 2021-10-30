@@ -7,6 +7,7 @@ install:
   - ps: node -v
   - ps: npm -v
   - cmd: npm --loglevel=error i
+  - ps: choco install nasm
   - cmd: echo "Downloading conan..."
   - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
   - cmd: pip.exe install conan
