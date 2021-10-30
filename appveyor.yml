@@ -18,7 +18,7 @@ build_script:
   - ps: echo build $env:build_target
   - ps: conan install $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --build=missing
   - ps: conan info $env:build_target@ -s arch=x86_64 -s compiler.runtime=MT --paths --json x64.json
-  - cmd: build_x86.cmd %build_target% -o no_asm=True
+  - cmd: build_x86.cmd %build_target% "-o no_asm=True"
   - ps: conan info $env:build_target@ -s arch=x86 -s compiler.runtime=MT --paths --json x86.json
   - ps: node index
   - ps: ls
