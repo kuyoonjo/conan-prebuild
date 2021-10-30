@@ -54,10 +54,9 @@ for (const arch of ['x86_64', 'x86']) {
       cwd,
     },
     ['.']
-  ).pipe(fs.createWriteStream(output));
-  // gh release upload
-
-  const cmdUploadRelease = `${gh} release upload ${releaseName} ${output} --clobber`;
-  console.log(cmdUploadRelease);
-  cp.execSync(cmdUploadRelease, { stdio: 'inherit' });
+  ).pipe(fs.createWriteStream(output)).on('close', () => {
+    const cmdUploadRelease = `${gh} release upload ${releaseName} ${output} --clobber`;
+    console.log(cmdUploadRelease);
+    cp.execSync(cmdUploadRelease, { stdio: 'inherit' });
+  });
 }
