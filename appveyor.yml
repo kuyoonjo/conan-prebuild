@@ -15,8 +15,8 @@ install:
 build_script:
   - ps: echo build $env:build_target
   - ps: conan install $env:build_target@ -s arch=x86_64
-  - ps: conan info $env:build_target@ -s arch=x86_64 --json --paths x64.json
+  - ps: conan info $env:build_target@ -s arch=x86_64 --paths --json x64.json
   - ps: conan install $env:build_target@ -s arch=x86
-  - ps: conan info $env:build_target@ -s arch=x86 --json --paths x86.json
+  - ps: conan info $env:build_target@ -s arch=x86 --paths --json x86.json
   - ps: node index
   - ps: ls
