@@ -1,0 +1,20 @@
+image: Visual Studio 2017
+
+platform:
+- x86
+
+install:
+  - cmd: echo "Downloading node..."
+  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild "15.11.0") $env:platform;
+  - ps: node -v
+  - ps: npm -v
+  - cmd: echo "Downloading conan..."
+  - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
+  - cmd: pip.exe install conan
+  - cmd: conan user # Create the conan data directory
+  - cmd: conan --version
+build_script:
+  - ps: echo build $env:build_target
+  - ps: conan install $env:build_target@
+  - ps: conan info $env:build_target@ --json output.json
+  - ps: type output.json
