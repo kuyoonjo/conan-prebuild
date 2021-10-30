@@ -10,7 +10,7 @@ const targets = {
 const name = process.env.build_target + '-' + process.env.build_version
 const reference = process.env.build_target + '/' + process.env.build_version;
 
-for (const arch of ['x86_64']) {
+for (const arch of ['x86_64', 'x86']) {
   const jsonPath = `${name}-${arch}.json`;
   const cmdInstall = [
     'conan',
