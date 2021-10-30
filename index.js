@@ -7,7 +7,9 @@ const targets = {
   x86_64: 'x86_64-pc-windows-msvc',
 };
 
-const name = process.env.build_target + '-' + process.env.build_version
+let name = process.env.build_target + '-' + process.env.build_version
+if (process.env.name_suffix)
+  name += '-' + process.env.name_suffix;
 const reference = process.env.build_target + '/' + process.env.build_version;
 
 for (const arch of ['x86_64', 'x86']) {
