@@ -7,8 +7,14 @@ const targets = {
   x86_64: 'x86_64-pc-windows-msvc',
 };
 
+const name = process.env.build_target.replace(/\//g, '-');
+const releaseName = process.env.build_target.split('/')[0];
+const cmdCreateRelease = `gh release create ${releaseName} --notes ${releaseName}`;
+console.log(cmdCreateRelease);
+cp.execSync(cmdCreateRelease, { stdio: 'inherit' });
+
 for (const arch of ['x86_64', 'x86']) {
-  const jsonPath = `${process.env.build_target}-${arch}.json`;
+  const jsonPath = `${name}-${arch}.json`;
   const cmdInstall = [
     'conan',
     'install',
@@ -35,12 +41,17 @@ for (const arch of ['x86_64', 'x86']) {
   const json = jsonArray.find(x => x.reference === process.env.build_target);
   console.log(json);
   const cwd = json.package_folder;
-  const name = json.reference.replace(/\//g, '-');
+  const output = name + '-' + targets[arch] + '.tar.gz';
   tar.c(
     {
       gzip: true,
       cwd,
     },
     ['.']
-  ).pipe(fs.createWriteStream(name + '-' + targets[arch] + '.tar.gz'));
+  ).pipe(fs.createWriteStream(output));
+  // gh release upload
+
+  const cmdUploadRelease = `gh release upload ${releaseName} ${output} --clobber`;
+  console.log(cmdUploadRelease);
+  cp.execSync(cmdUploadRelease, { stdio: 'inherit' });
 }
