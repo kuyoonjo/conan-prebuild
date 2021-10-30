@@ -8,6 +8,7 @@ const targets = {
 };
 
 for (const arch of ['x86_64', 'x86']) {
+  const jsonPath = `${process.env.build_target}-${arch}.json`;
   const cmdInstall = [
     'conan',
     'install',
@@ -25,12 +26,13 @@ for (const arch of ['x86_64', 'x86']) {
     process.env.build_target + '@',
     `-s arch=${arch}`,
     process.env[arch + '_flags'],
-    `--paths --json ${arch}.json`,
+    `--paths --json ${jsonPath}`,
   ].join(' ');
   console.log(cmdInfo);
   cp.execSync(cmdInfo, { stdio: 'inherit' });
 
-  const json = JSON.parse(fs.readFileSync(arch + '.json').toString());
+  const jsonArray = JSON.parse(fs.readFileSync(jsonPath).toString());
+  const json = jsonArray.find(x => x.reference === process.env.build_target);
   console.log(json);
   const cwd = json.package_folder;
   const name = json.reference.replace(/\//g, '-');
