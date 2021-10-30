@@ -15,7 +15,7 @@ install:
   - cmd: conan remote list
 build_script:
   - cmd: echo build %build_target%...
-  - cmd: build.cmd %build_target% "%x86_64_flags%"
-  - cmd: build.cmd %build_target% "%x86_flags%"
+  - cmd: build.cmd x86_64 %build_target% "%x86_64_flags%"
+  - cmd: build.cmd x86 %build_target% "%x86_flags%"
   - cmd: node index
   - cmd: dir
