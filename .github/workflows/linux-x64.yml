@@ -49,11 +49,11 @@ jobs:
         with:
           version: 12.16.0
 
-      - name: Install Node.js dependencies
-        run: npm i
-
       - name: Git checkout
         uses: actions/checkout@v2
+
+      - name: Install Node.js dependencies
+        run: npm i
 
       - name: Run a multi-line script
         run: |
