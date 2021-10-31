@@ -1,14 +1,7 @@
-> POST https://ci.appveyor.com/api/account/kuyoonjo/builds
-```json
-{
-    "accountName": "kuyoonjo",
-    "projectSlug": "conan-prebuild",
-    "branch": "main",
-    "environmentVariables": {
-       "build_target": "openssl",
-       "build_version": "1.1.1l",
-       "build_flags": "-s arch=x86 -s compiler.runtime=MD",
-       "build_output_basename": "openssl-1.1.1l-i386-pc-win32-MD"
-    }
-}
+```bash
+gh workflow run win --field build_target=openssl --field build_version=1.1.1l --field "build_flags=-s arch=x86_64 -s compiler.runtime=MT" --field build_output_basename=openssl-1.1.1l-x86_64-pc-windows-msvc-MT
+```
+
+```bash
+gh workflow run win --field build_target=openssl --field build_version=1.1.1l --field "build_flags=-s arch=x86 -s compiler.runtime=MT" --field build_output_basename=openssl-1.1.1l-i386-pc-win32-MT
 ```
