@@ -29,11 +29,12 @@ jobs:
           # Set an output parameter `uname` for use in subsequent steps
           run: |
             uname -a
-            apt-get update -y
+            apt-get update
+            apt-get install gnupg2 -y
             apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
             apt-get -y install software-properties-common
             add-apt-repository ppa:deadsnakes/ppa -y
-            apt-get update -y
+            apt-get update
             apt-get install build-essential python3.9 curl -y
             curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
             python3.9 get-pip.py
