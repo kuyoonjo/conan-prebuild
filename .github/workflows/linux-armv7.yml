@@ -35,3 +35,21 @@ jobs:
         # Echo the `uname` output parameter from the `runcmd` step
         run: |
           echo "The uname output was ${{ steps.runcmd.outputs.uname }}"
+          gcc -v
+
+      - name: Get Conan
+        uses: turtlebrowser/get-conan@v1.0
+        
+      - name: Conan Info
+        run: |
+          conan user
+          conan --version
+          conan remote list
+  
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.1
+        with:
+          version: 15.11.0
+
+      - name: Install Node.js dependencies
+        run: npm i
