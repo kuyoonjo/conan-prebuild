@@ -44,7 +44,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-          echo test $build_target
+          echo test %build_target%
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: cmd
