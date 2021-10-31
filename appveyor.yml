@@ -24,4 +24,4 @@ build_script:
   - cmd: node build
   - cmd: node sha1sum
   - cmd: dir
-  - cmd: refreshenv && gh release upload %build_target% %build_output_basename%.tgz && gh release upload %build_target% %build_output_basename%.sha1sum.txt
+  - cmd: refreshenv && gh release upload %build_target% %build_output_basename%.tgz --clobber && gh release upload %build_target% %build_output_basename%.sha1sum.txt --clobber
