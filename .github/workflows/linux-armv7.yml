@@ -30,8 +30,14 @@ jobs:
           run: |
             uname -a
             apt-get update -y
-            apt-get install build-essential python curl -y
-            python --version
+            apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
+            apt-get -y install software-properties-common
+            add-apt-repository ppa:deadsnakes/ppa -y
+            apt-get update -y
+            apt-get install build-essential python3.9 curl -y
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            python3.9 get-pip.py
+            pip -V
             pip install conan
             conan user
             conan --version
@@ -39,4 +45,5 @@ jobs:
             echo ::set-output name=uname::$(uname -a)
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
             source ~/.bashrc
+            nvm install 12.16.0
             node -e "console.log(process.arch)"
