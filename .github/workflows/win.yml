@@ -24,27 +24,29 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       
-      # - name: Get Conan
-      #   uses: turtlebrowser/get-conan@v1.0
+      - name: Get Conan
+        uses: turtlebrowser/get-conan@v1.0
         
-      # - name: Conan Info
-      #   run: |
-      #     conan user
-      #     conan --version
-      #     conan remote list
+      - name: Conan Info
+        run: |
+          conan user
+          conan --version
+          conan remote list
   
-      # - name: Setup Node.js environment
-      #   uses: actions/setup-node@v2.4.1
-      #   with:
-      #     version: 15.11.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.1
+        with:
+          version: 15.11.0
 
-      # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test %build_target%
+          node prepare
+          node build
+          node sha1sum
+          gh release upload %build_target% %build_output_basename%.tgz --clobber
+          gh release upload %build_target% %build_output_basename%.sha1sum.txt --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: cmd
