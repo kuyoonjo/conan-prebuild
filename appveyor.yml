@@ -21,6 +21,7 @@ install:
   - cmd: conan remote list
 build_script:
   - cmd: echo build %build_target%...
+  - cmd: node prepare
   - cmd: node build
   - cmd: node sha1sum
   - cmd: dir
