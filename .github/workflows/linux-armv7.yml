@@ -30,8 +30,8 @@ jobs:
           run: |
             uname -a
             apt-get update -y
+            apt-get install build-essential python curl -y
             python --version
-            apt-get install build-essential curl -y
             pip install conan
             conan user
             conan --version
