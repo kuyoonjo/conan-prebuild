@@ -1,3 +1,9 @@
+## prebuild all
+```
+./conan-prebuild openssl 1.1.1l
+```
+## prebuild one
+
 ```bash
 gh workflow run win --field build_target=openssl --field build_version=1.1.1l --field "build_flags=-s arch=x86_64 -s compiler.runtime=MT" --field build_output_basename=openssl-1.1.1l-x86_64-pc-windows-msvc-MT
 ```
