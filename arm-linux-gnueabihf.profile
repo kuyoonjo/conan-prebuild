@@ -11,7 +11,7 @@ RANLIB=arm-linux-gnueabihf-ranlib
 
 [settings]
 os=Linux
-arch=armhf
+arch=armv7hf
 compiler=gcc
 compiler.version=7
 compiler.libcxx=libstdc++11
