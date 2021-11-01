@@ -36,7 +36,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Install multilib
-        run: apt-get install -y gcc-multilib g++-multilib
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-multilib g++-multilib
 
       - name: Get Conan
         uses: turtlebrowser/get-conan@v1.0

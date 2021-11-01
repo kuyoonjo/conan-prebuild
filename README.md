@@ -7,6 +7,14 @@ gh workflow run win --field build_target=openssl --field build_version=1.1.1l --
 ```
 
 ```bash
+gh workflow run linux-x64 --field build_target=openssl --field build_version=1.1.1l --field "build_flags=-s arch=x86_64" --field build_output_basename=openssl-1.1.1l-x86_64-linux-gnu
+```
+
+```bash
+gh workflow run linux-x86 --field build_target=openssl --field build_version=1.1.1l --field "build_flags=-s arch=x86" --field build_output_basename=openssl-1.1.1l-i386-linux-gnu
+```
+
+```bash
 gh workflow run linux-armv7 --field build_target=openssl --field build_version=1.1.1l --field "build_flags=-pr arm-linux-gnueabihf.profile" --field build_output_basename=openssl-1.1.1l-arm-linux-gnueabihf
 ```
 
