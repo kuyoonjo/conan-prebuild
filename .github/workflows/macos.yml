@@ -46,6 +46,7 @@ jobs:
           conan user
           conan --version
           conan remote list
+          conan install meson/0.59.2@ build=missing
   
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
