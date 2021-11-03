@@ -47,6 +47,12 @@ jobs:
           conan --version
           conan remote list
           conan install meson/0.59.2@ --build=missing
+          conan install autoconf/2.71@ --build=missing
+          conan install automake/1.16.3@ --build=missing
+          conan install gnu-config/cci.20201022@ --build=missing
+          conan install libtool/2.4.6@ --build=missing
+          conan install m4/1.4.19@ --build=missing
+          conan install pkgconf/1.7.4@ --build=missing
   
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
