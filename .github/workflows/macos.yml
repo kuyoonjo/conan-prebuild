@@ -35,8 +35,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Setup meson ninja
-        run: brew install meson ninja
       - name: Get Conan
         uses: turtlebrowser/get-conan@v1.0
         
