@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: cmake-linux-armv7
+name: cmake-linux
 
 # Controls when the workflow will run
 on:
@@ -28,6 +28,9 @@ on:
       build_output_basename:
         description: 'Output Basename'     
         required: true
+      triple:
+        description: 'triple'     
+        required: true
 
 env:
   build_target: ${{ github.event.inputs.build_target }}
@@ -37,7 +40,7 @@ env:
   build_flags: ${{ github.event.inputs.build_flags }}
   build_deps: ${{ github.event.inputs.build_deps }}
   build_output_basename: ${{ github.event.inputs.build_output_basename }}
-  triple: arm-linux-gnueabihf
+  triple: ${{ github.event.inputs.triple }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -48,11 +51,24 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Install Cross Compiler
+      - name: Install Armv7 Cross Compiler
+        if: ${{ github.event.inputs.triple == 'arm-linux-gnueabihf' }}
         run: |
           sudo apt-get update
           sudo apt-get install libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
   
+      - name: Install Armv8 Cross Compiler
+        if: ${{ github.event.inputs.triple == 'aarch64-linux-gnu' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install libc6-armel-cross libc6-dev-armel-cross binutils-aarch64-linux-gnu libncurses5-dev build-essential bison flex libssl-dev bc gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+
+      - name: Install multilib
+        if: ${{ github.event.inputs.triple == 'i386-linux-gnu' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-multilib g++-multilib
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
         with:
