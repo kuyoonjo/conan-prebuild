@@ -16,6 +16,9 @@ on:
       build_flags:
         description: 'Build Flags'     
         required: true
+      build_deps:
+        description: 'Build Deps'     
+        required: true
       build_output_basename:
         description: 'Output Basename'     
         required: true
@@ -24,6 +27,7 @@ env:
   build_repo: ${{ github.event.inputs.build_repo }}
   build_tag: ${{ github.event.inputs.build_tag }}
   build_flags: ${{ github.event.inputs.build_flags }}
+  build_deps: ${{ github.event.inputs.build_deps }}
   build_output_basename: ${{ github.event.inputs.build_output_basename }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -53,6 +57,8 @@ jobs:
 
       - name: Run a multi-line script
         run: |
+          git clone $build_repo repo
+          cd repo && git checkout $build_tag && cd ..
           node prepare
           node cmake-build
           node sha1sum

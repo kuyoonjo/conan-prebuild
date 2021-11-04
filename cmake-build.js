@@ -9,7 +9,7 @@ const download = require('download');
     fs.mkdirSync('deps', { recursive: true });
     console.log('Download Deps:', process.env.build_deps);
     const deps = process.env.build_deps.split(',');
-    const ps = deps.map(dep => {
+    const ps = deps.map(async dep => {
       const [lib, version] = dep.split('/');
       const fileName = `${lib}-${version}-${process.env.triple}.tgz`;
       const url = `https://github.com/kuyoonjo/conan-prebuild/releases/download/${lib}/${fileName}`;
@@ -25,51 +25,33 @@ const download = require('download');
     await Promise.all(ps);
   }
 
-  const cmdBuild = [
+  const outputDir = path.resolve(path.join(__dirname, process.env.build_output_basename));
+
+  const cmdConfig = [
     'cmake',
-    '-B build repo',
-    '-DCMAKE_TOOLCHAIN_FILE=' + process.env.triple + '.cmake',
-    '-DCMAKE_INSTALL_PREFIX=' + path.relative(path.join(__dirname, process.env.build_output_basename + '.tgz')),
+    '-B build .',
+    '-DCMAKE_TOOLCHAIN_FILE=../' + process.env.triple + '.cmake',
+    '-DCMAKE_INSTALL_PREFIX=' + outputDir,
+    '-DCMAKE_PREFIX_PATH=' + path.resolve(path.join(__dirname, 'deps')),
     process.env.build_flags,
     //  -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$PWD/install -DCMAKE_USE_LIBSSH2=ON -DCMAKE_PREFIX_PATH=/Users/yu/Downloads/libssh2-1.10.0-aarch64-linux-gnu;/Users/yu/Downloads/zlib-1.2.11-aarch64-linux-gnu
   ].join(' ');
-  console.log(cmdInstall);
-  cp.execSync(cmdInstall, { stdio: 'inherit' });
+  console.log(cmdConfig);
+  cp.execSync(cmdConfig, { stdio: 'inherit', cwd: 'repo' });
+
+  const cmdBuild = [
+    'cmake --build build && cmake --build build --target install',
+    process.env.build_flags,
+  ].join(' ');
+  console.log(cmdBuild);
+  cp.execSync(cmdBuild, { stdio: 'inherit', cwd: 'repo' });
+
+  const output = process.env.build_output_basename + '.tgz';
+  tar.c(
+    {
+      gzip: true,
+      cwd: outputDir,
+    },
+    ['.']
+  ).pipe(fs.createWriteStream(output));
 })();
-
-// const reference = process.env.build_target + '/' + process.env.build_version;
-
-// const jsonPath = `${process.env.build_output_basename}.json`;
-// const cmdInstall = [
-//   'conan',
-//   'install',
-//   reference + '@',
-//   '--build=missing',
-//   process.env.build_flags,
-// ].join(' ');
-// console.log(cmdInstall);
-// cp.execSync(cmdInstall, { stdio: 'inherit' });
-
-// const cmdInfo = [
-//   'conan',
-//   'info',
-//   reference + '@',
-//   process.env.build_flags,
-//   `--paths --json ${jsonPath}`,
-// ].join(' ');
-// console.log(cmdInfo);
-// cp.execSync(cmdInfo, { stdio: 'inherit' });
-
-// const jsonArray = JSON.parse(fs.readFileSync(jsonPath).toString());
-// const json = jsonArray.find(x => x.reference === reference);
-// console.log(json);
-// const cwd = json.package_folder;
-// const output = process.env.build_output_basename + '.tgz';
-// tar.c(
-//   {
-//     gzip: true,
-//     cwd,
-//   },
-//   ['.']
-// ).pipe(fs.createWriteStream(output));
-
