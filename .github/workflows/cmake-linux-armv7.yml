@@ -29,6 +29,7 @@ env:
   build_flags: ${{ github.event.inputs.build_flags }}
   build_deps: ${{ github.event.inputs.build_deps }}
   build_output_basename: ${{ github.event.inputs.build_output_basename }}
+  triple: arm-linux-gnueabihf
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
