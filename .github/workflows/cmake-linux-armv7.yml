@@ -71,7 +71,7 @@ jobs:
           node prepare
           node cmake-build
           node sha1sum
-          gh release upload $build_repo $build_output_basename.tgz --clobber
-          gh release upload $build_repo $build_output_basename.sha1sum.txt --clobber
+          gh release upload $build_target $build_output_basename.tgz --clobber
+          gh release upload $build_target $build_output_basename.sha1sum.txt --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
