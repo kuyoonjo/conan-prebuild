@@ -7,6 +7,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
+      build_target:
+        description: 'Library Name'     
+        required: true
+      build_version:
+        description: 'Library Version'     
+        required: true
       build_repo:
         description: 'Library repo'     
         required: true
@@ -24,6 +30,8 @@ on:
         required: true
 
 env:
+  build_target: ${{ github.event.inputs.build_target }}
+  build_version: ${{ github.event.inputs.build_version }}
   build_repo: ${{ github.event.inputs.build_repo }}
   build_tag: ${{ github.event.inputs.build_tag }}
   build_flags: ${{ github.event.inputs.build_flags }}
