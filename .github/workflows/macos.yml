@@ -19,15 +19,12 @@ on:
       build_output_basename:
         description: 'Output Basename'     
         required: true
-      build_deps:
-        description: 'Dependencies'
 
 env:
   build_target: ${{ github.event.inputs.build_target }}
   build_version: ${{ github.event.inputs.build_version }}
   build_flags: ${{ github.event.inputs.build_flags }}
   build_output_basename: ${{ github.event.inputs.build_output_basename }}
-  build_deps: ${{ github.event.inputs.build_deps }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
