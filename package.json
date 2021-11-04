@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kuyoonjo/conan-prebuild#readme",
   "dependencies": {
+    "download": "^8.0.0",
     "tar": "^6.1.11"
   }
 }

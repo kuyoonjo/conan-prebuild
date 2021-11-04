@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+output=$1
+repo=$2
+tag=$3
+deps=$4
+
+# gh workflow run win --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86_64 -s compiler.runtime=MT" --field build_output_basename=$target-$version-x86_64-pc-windows-msvc-MT
+# gh workflow run win --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86 -s compiler.runtime=MT" --field build_output_basename=$target-$version-i386-pc-win32-MT
+# gh workflow run linux-x64 --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86_64" --field build_output_basename=$target-$version-x86_64-linux-gnu
+# gh workflow run linux-x86 --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86" --field build_output_basename=$target-$version-i386-linux-gnu
+# gh workflow run linux-armv7 --field build_target=$target --field build_version=$version --field "build_flags=-pr arm-linux-gnueabihf.profile" --field build_output_basename=$target-$version-arm-linux-gnueabihf
+# gh workflow run linux-armv8 --field build_target=$target --field build_version=$version --field "build_flags=-pr aarch64-linux-gnu.profile" --field build_output_basename=$target-$version-aarch64-linux-gnu
+# gh workflow run macos --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86_64" --field build_output_basename=$target-$version-x86_64-apple-darwin13
+# gh workflow run macos --field build_target=$target --field build_version=$version --field "build_flags=-s arch=armv8" --field build_output_basename=$target-$version-arm64-apple-darwin20.3.0
+
+gh workflow run cmake-linux-armv7 --field build_repo=$repo --field build_tag=$tag --field "build_flags=-DBUILD_SHARED_LIBS=OFF" --field build_deps=$deps -field build_output_basename=$output-arm-linux-gnueabihf
