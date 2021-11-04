@@ -1,0 +1,4 @@
+set(CMAKE_SYSTEM_NAME Linux)
+
+set(CMAKE_C_FLAGS -m64)
+set(CMAKE_CXX_FLAGS -m64)
