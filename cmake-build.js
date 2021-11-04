@@ -41,7 +41,6 @@ const download = require('download');
 
   const cmdBuild = [
     'cmake --build build && cmake --build build --target install',
-    process.env.build_flags,
   ].join(' ');
   console.log(cmdBuild);
   cp.execSync(cmdBuild, { stdio: 'inherit', cwd: 'repo' });
