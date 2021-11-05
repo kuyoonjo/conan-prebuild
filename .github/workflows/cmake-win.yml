@@ -73,3 +73,4 @@ jobs:
           gh release upload $build_target $build_output_basename.sha1sum.txt --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: cmd
