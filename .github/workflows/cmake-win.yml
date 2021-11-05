@@ -64,13 +64,13 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-          git clone $build_repo repo
-          cd repo && git checkout $build_tag && cd ..
+          git clone %build_repo% repo
+          cd repo && git checkout %build_tag% && cd ..
           node prepare
           node cmake-build
           node sha1sum
-          gh release upload $build_target $build_output_basename.tgz --clobber
-          gh release upload $build_target $build_output_basename.sha1sum.txt --clobber
+          gh release upload %build_target% %build_output_basename%.tgz --clobber
+          gh release upload %build_target% %build_output_basename%.sha1sum.txt --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: cmd
