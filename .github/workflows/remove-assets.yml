@@ -10,7 +10,6 @@ on:
       tag:
         description: 'tag'     
         required: true
-    inputs:
       assets:
         description: 'assets'     
         required: true
