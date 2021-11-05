@@ -5,7 +5,7 @@ version=$2
 deps=$3
 
 gh workflow run win --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86_64 -s compiler.runtime=MT" --field build_output_basename=$target-$version-x86_64-pc-windows-msvc-MT
-gh workflow run win --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86 -s compiler.runtime=MT" --field build_output_basename=$target-$version-i386-pc-win32-MT
+gh workflow run win --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86 -s compiler.runtime=MT" --field build_output_basename=$target-$version-i386-pc-windows-msvc-MT
 gh workflow run linux-x64 --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86_64" --field build_output_basename=$target-$version-x86_64-linux-gnu
 gh workflow run linux-x86 --field build_target=$target --field build_version=$version --field "build_flags=-s arch=x86" --field build_output_basename=$target-$version-i386-linux-gnu
 gh workflow run linux-armv7 --field build_target=$target --field build_version=$version --field "build_flags=-pr arm-linux-gnueabihf.profile" --field build_output_basename=$target-$version-arm-linux-gnueabihf
