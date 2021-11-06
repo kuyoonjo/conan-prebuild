@@ -35,3 +35,8 @@ gh workflow run macos --field build_target=openssl --field build_version=1.1.1l 
 ```bash
 gh workflow run macos --field build_target=openssl --field build_version=1.1.1l --field "build_flags=-s arch=armv8" --field build_output_basename=openssl-1.1.1l-arm64-apple-darwin20.3.0
 ```
+
+## Cmake
+```
+cmake-prebuild libcurl 7.79.1 https://github.com/curl/curl.git curl-7_79_1 openssl/1.1.1l,zlib/1.2.11,libssh2/1.10.0 "-DBUILD_SHARED_LIBS=OFF -DBUILD_CURL_EXE=OFF -DCURL_STATIC_CRT=ON"
+```
