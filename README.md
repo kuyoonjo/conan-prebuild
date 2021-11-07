@@ -38,5 +38,11 @@ gh workflow run macos --field build_target=openssl --field build_version=1.1.1l 
 
 ## Cmake
 ```
-cmake-prebuild libcurl 7.79.1 https://github.com/curl/curl.git curl-7_79_1 openssl/1.1.1l,zlib/1.2.11,libssh2/1.10.0 "-DBUILD_SHARED_LIBS=OFF -DBUILD_CURL_EXE=OFF -DCURL_STATIC_CRT=ON"
+cmake-prebuild zlib-ng 2.0.5 https://github.com/zlib-ng/zlib-ng.git 2.0.5 "" "-DZLIB_COMPAT=ON -DBUILD_SHARED_LIBS=OFF"
+```
+```
+cmake-prebuild libcurl 7.79.1 https://github.com/curl/curl.git curl-7_79_1 openssl/1.1.1l,zlib-ng/2.0.5,libssh2/1.10.0 "-DBUILD_SHARED_LIBS=OFF -DBUILD_CURL_EXE=OFF -DCURL_STATIC_CRT=ON"
+```
+```
+cmake-prebuild co 2021-11-06 https://github.com/idealvin/co.git master openssl/1.1.1l,zlib-ng/2.0.5,libssh2/1.10.0,libcurl/7.79.1 "-DWITH_LIBCURL=ON -DWITH_OPENSSL=ON -DSTATIC_VS_CRT=ON"
 ```
