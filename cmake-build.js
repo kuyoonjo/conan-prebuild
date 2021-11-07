@@ -32,7 +32,7 @@ const download = require('download');
   const cmdConfig = [
     'cmake',
     '-B build .',
-    isWin ? '' : '-DCMAKE_TOOLCHAIN_FILE=../' + process.env.triple + '.cmake',
+    isWin ? '' : '--config Release -DCMAKE_TOOLCHAIN_FILE=../' + process.env.triple + '.cmake',
     '-DCMAKE_INSTALL_PREFIX=' + outputDir,
     '-DCMAKE_PREFIX_PATH=' + path.resolve(path.join(__dirname, 'deps')),
     process.env.build_flags,
