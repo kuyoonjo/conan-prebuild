@@ -45,6 +45,7 @@ const download = require('download');
     'cmake --build build',
     isWin ? '--config Release' : '',
     '&& cmake --build build --target install',
+    isWin ? '--config Release' : '',
   ].join(' ');
   console.log(cmdBuild);
   cp.execSync(cmdBuild, { stdio: 'inherit', cwd: 'repo' });
