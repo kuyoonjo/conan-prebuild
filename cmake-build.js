@@ -5,7 +5,7 @@ const path = require('path');
 const download = require('download');
 
 (async () => {
-  if (process.env.build_deps) {
+  if (process.env.build_deps && process.env.build_deps === '-') {
     fs.mkdirSync('deps', { recursive: true });
     console.log('Download Deps:', process.env.build_deps);
     const deps = process.env.build_deps.split(',');
