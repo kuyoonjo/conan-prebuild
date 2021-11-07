@@ -20,3 +20,10 @@ set(CMAKE_STRIP                 ${triple}-strip)
 set(CMAKE_CPP                   ${triple}-cpp)
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+
+set(CMAKE_C_FLAGS -mfloat-abi=hard)
+set(CMAKE_CXX_FLAGS -mfloat-abi=hard)
+set(CMAKE_ASM_FLAGS -32)
+set(CMAKE_EXE_LINKER_FLAGS -mfloat-abi=hard)
+set(CMAKE_MODULE_LINKER_FLAGS -mfloat-abi=hard)
+set(CMAKE_SHARED_LINKER_FLAGS -mfloat-abi=hard)
