@@ -27,20 +27,24 @@ const download = require('download');
 
   const outputDir = path.resolve(path.join(__dirname, process.env.build_output_basename));
 
+  const isWin = process.env.triple.includes('windows-msvc');
+
   const cmdConfig = [
     'cmake',
     '-B build .',
-    '-DCMAKE_TOOLCHAIN_FILE=../' + process.env.triple + '.cmake',
+    isWin ? '' : '-DCMAKE_TOOLCHAIN_FILE=../' + process.env.triple + '.cmake',
     '-DCMAKE_INSTALL_PREFIX=' + outputDir,
     '-DCMAKE_PREFIX_PATH=' + path.resolve(path.join(__dirname, 'deps')),
     process.env.build_flags,
-    //  -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$PWD/install -DCMAKE_USE_LIBSSH2=ON -DCMAKE_PREFIX_PATH=/Users/yu/Downloads/libssh2-1.10.0-aarch64-linux-gnu;/Users/yu/Downloads/zlib-1.2.11-aarch64-linux-gnu
+    process.env.triple === 'i386-pc-windows-msvc-MT' ? '-A Win32' : '',
   ].join(' ');
   console.log(cmdConfig);
   cp.execSync(cmdConfig, { stdio: 'inherit', cwd: 'repo' });
 
   const cmdBuild = [
-    'cmake --build build && cmake --build build --target install',
+    'cmake --build build',
+    isWin ? '--config Release' : '',
+    '&& cmake --build build --target install',
   ].join(' ');
   console.log(cmdBuild);
   cp.execSync(cmdBuild, { stdio: 'inherit', cwd: 'repo' });
