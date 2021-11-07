@@ -24,7 +24,7 @@ on:
         required: true
       build_deps:
         description: 'Build Deps'     
-        required: true
+        required: false
       build_output_basename:
         description: 'Output Basename'     
         required: true
