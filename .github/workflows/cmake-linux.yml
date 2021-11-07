@@ -55,13 +55,13 @@ jobs:
         if: ${{ github.event.inputs.triple == 'arm-linux-gnueabihf' }}
         run: |
           sudo apt-get update
-          sudo apt-get install libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+          sudo apt-get install libc6-armhf-cross libc6-dev-armhf-cross binutils-arm-linux-gnueabihf libncurses5-dev build-essential bison flex libssl-dev bc gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
   
       - name: Install Armv8 Cross Compiler
         if: ${{ github.event.inputs.triple == 'aarch64-linux-gnu' }}
         run: |
           sudo apt-get update
-          sudo apt-get install libc6-armel-cross libc6-dev-armel-cross binutils-aarch64-linux-gnu libncurses5-dev build-essential bison flex libssl-dev bc gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+          sudo apt-get install libc6-armel-cross libc6-dev-armel-cross libc6-armhf-cross libc6-dev-armhf-cross binutils-aarch64-linux-gnu libncurses5-dev build-essential bison flex libssl-dev bc gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
       - name: Install multilib
         if: ${{ github.event.inputs.triple == 'i386-linux-gnu' }}
