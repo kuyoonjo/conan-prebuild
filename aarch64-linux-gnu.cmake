@@ -10,7 +10,7 @@ set(CMAKE_FIND_ROOT_PATH "/usr/${triple}")
 
 set(CMAKE_C_COMPILER            ${triple}-gcc)
 set(CMAKE_CXX_COMPILER          ${triple}-g++)
-set(CMAKE_ASM_COMPILER          ${triple}-as)
+set(CMAKE_ASM_COMPILER          ${triple}-gcc)
 set(CMAKE_AR                    ${triple}-ar)
 set(CMAKE_LINKER                ${triple}-ld)
 set(CMAKE_OBJCOPY               ${triple}-objcopy)
