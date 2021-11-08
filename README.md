@@ -46,3 +46,6 @@ cmake-prebuild libcurl 7.79.1 https://github.com/curl/curl.git curl-7_79_1 opens
 ```
 cmake-prebuild co 2021-11-06 https://github.com/idealvin/co.git master openssl/1.1.1l,zlib-ng/2.0.5,libssh2/1.10.0,libcurl/7.79.1 "-DWITH_LIBCURL=ON -DWITH_OPENSSL=ON -DSTATIC_VS_CRT=ON"
 ```
+```
+cmake-prebuild fmt 8.0.1 https://github.com/fmtlib/fmt.git 8.0.1 "" "-DCMAKE_MSVC_RUNTIME_LIBRARY=\"MultiThreaded$<$<CONFIG:Debug>:Debug>\""
+```
