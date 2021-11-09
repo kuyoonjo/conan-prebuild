@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+lib=$1
+ver=$2
+
+dir=~/.conan-prebuild/$lib/$ver/download
+
+[ -d "$dir" ] && rm -rf $dir
+
+gh release download -R kuyoonjo/conan-prebuild $lib -p "$lib-$ver-*" -D $dir
+
+for f in $dir/*.sha1sum.txt; do
+  g=${f/.sha1sum.txt/".tgz"}
+  echo ' ' $g >> $f
+  sha1sum -c $f
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+  triple=`basename $f`
+  triple=${triple/.sha1sum.txt/""}
+  prefix=$lib-$ver-
+  triple=${triple/$prefix/""}
+  d=~/.conan-prebuild/$lib/$ver/$triple
+  mkdir -p $d
+  tar -xzf $g --directory $d
+done
+
+rm -rf $dir
